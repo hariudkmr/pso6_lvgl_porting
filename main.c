@@ -47,6 +47,7 @@
 #include "mtb_st7789v.h"
 #include "LCDConf.h"
 #include "cy8ckit_028_tft_pins.h" /* This is part of the CY8CKIT-028-TFT shield library. */
+#include "lvgl.h"
 
 
 /* The pins above are defined by the CY8CKIT-028-TFT library. If the display is being used on different hardware the mappings will be different. */

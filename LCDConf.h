@@ -81,6 +81,8 @@ void LCD_ConfigColor(uint16 color);
 
 void LCD_WritePixel(uint16 x,uint16 y,uint16 color);
 
+void put_px(uint16 x,uint16 y,uint16 *color);
+
 void LCD_Clear(uint16 Color);
 
 void LCD_Border_Fill(void);

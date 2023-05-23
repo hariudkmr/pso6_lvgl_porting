@@ -437,6 +437,12 @@ void LCD_WritePixel(uint16 x,uint16 y,uint16 color)
 	LCD_ConfigColor(color);
 }
 
+void put_px(uint16 x,uint16 y,uint16 *color)
+{
+	LCD_ConigPixel(x,x+1,y,y+1);
+	LCD_ConfigColor(*color);
+}
+
 void LCD_Clear(uint16 Color)
 {
    uint32 i;
