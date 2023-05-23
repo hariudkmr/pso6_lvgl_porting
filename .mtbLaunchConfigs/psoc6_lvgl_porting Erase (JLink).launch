@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="ilg.gnumcueclipse.debug.gdbjtag.jlink.launchConfigurationType">
+<booleanAttribute key="com.cypress.studio.launch.hide" value="true"/>
 <stringAttribute key="com.cypress.studio.launch.mode" value="run"/>
 <booleanAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.doConnectToRunning" value="false"/>
-<booleanAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.doContinue" value="true"/>
+<booleanAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.doContinue" value="false"/>
 <booleanAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.doDebugInRam" value="false"/>
 <booleanAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.doFirstReset" value="true"/>
 <booleanAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.doGdbServerAllocateConsole" value="true"/>
 <booleanAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.doGdbServerAllocateSemihostingConsole" value="false"/>
-<booleanAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.doGdbServerInitRegs" value="true"/>
+<booleanAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.doGdbServerInitRegs" value="false"/>
 <booleanAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.doGdbServerLocalOnly" value="true"/>
 <booleanAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.doGdbServerSilent" value="false"/>
-<booleanAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.doGdbServerVerifyDownload" value="true"/>
+<booleanAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.doGdbServerVerifyDownload" value="false"/>
 <booleanAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.doSecondReset" value="true"/>
 <booleanAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.doStartGdbServer" value="true"/>
 <booleanAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.enableFlashBreakpoints" value="false"/>
@@ -36,7 +37,7 @@
 <intAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.gdbServerTelnetPortNumber" value="2333"/>
 <stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.interfaceSpeed" value="auto"/>
 <stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.otherInitCommands" value=""/>
-<stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.otherRunCommands" value="monitor reset 0&#13;&#10;monitor go&#13;&#10;quit"/>
+<stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.otherRunCommands" value="monitor reset 0&#13;&#10;monitor flash erase&#13;&#10;monitor reset 0&#13;&#10;quit"/>
 <stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.secondResetType" value="2"/>
 <intAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.swoEnableTargetCpuFreq" value="0"/>
 <stringAttribute key="ilg.gnumcueclipse.debug.gdbjtag.jlink.swoEnableTargetPortMask" value="0x1"/>
@@ -46,7 +47,7 @@
 <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.imageOffset" value=""/>
 <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.ipAddress" value="localhost"/>
 <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.jtagDevice" value="GNU MCU J-Link"/>
-<booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.loadImage" value="true"/>
+<booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.loadImage" value="false"/>
 <booleanAttribute key="org.eclipse.cdt.debug.gdbjtag.core.loadSymbols" value="false"/>
 <stringAttribute key="org.eclipse.cdt.debug.gdbjtag.core.pcRegister" value=""/>
 <intAttribute key="org.eclipse.cdt.debug.gdbjtag.core.portNumber" value="2331"/>
@@ -66,15 +67,12 @@
 <intAttribute key="org.eclipse.cdt.launch.ATTR_BUILD_BEFORE_LAUNCH_ATTR" value="2"/>
 <stringAttribute key="org.eclipse.cdt.launch.COREFILE_PATH" value=""/>
 <stringAttribute key="org.eclipse.cdt.launch.PROGRAM_NAME" value="${cy_prj_path}/build/CY8CKIT-062-WIFI-BT/Debug/mtb-example-psoc6-hello-world.hex"/>
-<stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="LVGL_Porting"/>
-<booleanAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_AUTO_ATTR" value="true"/>
+<stringAttribute key="org.eclipse.cdt.launch.PROJECT_ATTR" value="psoc6_lvgl_porting"/>
+<booleanAttribute key="org.eclipse.cdt.launch.PROJECT_BUILD_CONFIG_AUTO_ATTR" value="false"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/LVGL_Porting"/>
+<listEntry value="/psoc6_lvgl_porting"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="4"/>
-</listAttribute>
-<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
-<listEntry value="org.eclipse.debug.ui.launchGroup.run"/>
 </listAttribute>
 </launchConfiguration>
