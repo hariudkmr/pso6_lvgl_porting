@@ -48,6 +48,7 @@
 #include "LCDConf.h"
 #include "cy8ckit_028_tft_pins.h" /* This is part of the CY8CKIT-028-TFT shield library. */
 #include "lvgl.h"
+#include "timer.h"
 
 
 /* The pins above are defined by the CY8CKIT-028-TFT library. If the display is being used on different hardware the mappings will be different. */
@@ -68,15 +69,18 @@ const mtb_st7789v_pins_t tft_pins =
 };
 
 
+
+
+
 /*******************************************************************************
 * Macros
 *******************************************************************************/
 
 /* LED blink timer clock value in Hz  */
-#define LED_BLINK_TIMER_CLOCK_HZ          (10000)
+#define LED_BLINK_TIMER_CLOCK_HZ          (1000)
 
 /* LED blink timer period value */
-#define LED_BLINK_TIMER_PERIOD            (9999)
+#define LED_BLINK_TIMER_PERIOD            (999)
 
 
 /*******************************************************************************
@@ -98,8 +102,13 @@ uint8_t uart_read_value;
 /* Timer object used for blinking the LED */
 cyhal_timer_t led_blink_timer;
 
-/*A static or global variable to store the buffers*/
-
+cy_stc_gpio_pin_config_t pinConfig = {
+       /*.outVal =*/ 1UL,                  /* Output = High */
+       /*.driveMode =*/ CY_GPIO_DM_PULLUP, /* Resistive pull-up, input buffer on */
+       /*.hsiom =*/ P1_4_GPIO,             /* Software controlled pin */
+       /*.slewRate =*/ CY_GPIO_SLEW_FAST,  /* Fast slew rate */
+       /*.driveSel =*/ CY_GPIO_DRIVE_FULL, /* Full drive strength */
+   };
 
 
 /*******************************************************************************
@@ -123,9 +132,13 @@ int main(void)
 {
     cy_rslt_t result;
 
+
     /* Initialize the device and board peripherals */
     result = cybsp_init();
     
+    init_cycfg_peripherals();
+
+    init_cycfg_clocks();
     /* Board init failed. Stop program execution */
     if (result != CY_RSLT_SUCCESS)
     {
@@ -141,6 +154,8 @@ int main(void)
     LCD_Initialization();
 
     LCD_Clear(BLACK);
+
+    timer_1ms_init();
 
 	while(1)
 	{
@@ -235,7 +250,7 @@ static void isr_timer(void *callback_arg, cyhal_timer_event_t event)
 {
     (void) callback_arg;
     (void) event;
-
+    Cy_GPIO_Inv(P1_4_PORT, P1_4_NUM);
     /* Set the interrupt flag and process it from the main while(1) loop */
     timer_interrupt_flag = true;
 }
