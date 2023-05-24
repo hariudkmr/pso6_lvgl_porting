@@ -53,7 +53,8 @@
 
 #include "lvgl.h"
 #include "lv_port_disp.h"
-#include "lv_examples.h"
+//#include "lv_examples.h"
+#include "lv_demos.h"
 
 
 
@@ -155,7 +156,8 @@ int main(void)
 
     lv_port_disp_init();
 
-    lv_example_get_started_1();
+    //lv_example_get_started_1();
+    lv_demo_widgets();
 
     //LCD_Clear(BLACK);
 
