@@ -44,11 +44,18 @@
 #include "cyhal.h"
 #include "cybsp.h"
 #include "cy_retarget_io.h"
+#include "cy8ckit_028_tft_pins.h" /* This is part of the CY8CKIT-028-TFT shield library. */
+
+#include "timer.h"
+
 #include "mtb_st7789v.h"
 #include "LCDConf.h"
-#include "cy8ckit_028_tft_pins.h" /* This is part of the CY8CKIT-028-TFT shield library. */
+
 #include "lvgl.h"
-#include "timer.h"
+#include "lv_port_disp.h"
+#include "lv_examples.h"
+
+
 
 
 /* The pins above are defined by the CY8CKIT-028-TFT library. If the display is being used on different hardware the mappings will be different. */
@@ -102,14 +109,6 @@ uint8_t uart_read_value;
 /* Timer object used for blinking the LED */
 cyhal_timer_t led_blink_timer;
 
-cy_stc_gpio_pin_config_t pinConfig = {
-       /*.outVal =*/ 1UL,                  /* Output = High */
-       /*.driveMode =*/ CY_GPIO_DM_PULLUP, /* Resistive pull-up, input buffer on */
-       /*.hsiom =*/ P1_4_GPIO,             /* Software controlled pin */
-       /*.slewRate =*/ CY_GPIO_SLEW_FAST,  /* Fast slew rate */
-       /*.driveSel =*/ CY_GPIO_DRIVE_FULL, /* Full drive strength */
-   };
-
 
 /*******************************************************************************
 * Function Name: main
@@ -146,19 +145,26 @@ int main(void)
     }
 
     /* Enable global interrupts */
+
     __enable_irq();
 
     /* Initialize the display controller */
     result = mtb_st7789v_init8(&tft_pins);
 
-    LCD_Initialization();
+    lv_init();
 
-    LCD_Clear(BLACK);
+    lv_port_disp_init();
+
+    lv_example_get_started_1();
+
+    //LCD_Clear(BLACK);
 
     timer_1ms_init();
 
+
 	while(1)
 	{
+		#if 0
 		for(uint16 x = 0; x< 320; x++)
 		{
 			for(uint16 y = 0; y < 240; y++)
@@ -168,7 +174,10 @@ int main(void)
 			}
 			Cy_SysLib_Delay(10);
 		}
+		#endif
 
+		lv_task_handler();
+		Cy_SysLib_Delay(10);
 		//disp2();
 		//Cy_SysLib_Delay(500);
 		//Border_Fill();

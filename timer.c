@@ -7,6 +7,7 @@
 
 
 #include "timer.h"
+#include "lv_hal_tick.h"
 
  cy_stc_sysint_t Timer_IRQ_config = {
          .intrSrc = tcpwm_0_interrupts_5_IRQn,
@@ -20,7 +21,8 @@
  {
 	 uint32_t interrupts = Cy_TCPWM_GetInterruptStatusMasked(TCPWM0, MY_TCPWM_PWM_NUM);
 
-	 Cy_GPIO_Inv(P1_4_PORT, P1_4_NUM);
+	 //Cy_GPIO_Inv(P1_4_PORT, P1_4_NUM);
+	 lv_tick_inc(1);
 
 	 Cy_TCPWM_ClearInterrupt(TCPWM0, MY_TCPWM_PWM_NUM, interrupts);
  }
