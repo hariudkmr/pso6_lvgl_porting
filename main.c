@@ -45,6 +45,7 @@
 #include "cybsp.h"
 #include "cy_retarget_io.h"
 #include "cy8ckit_028_tft_pins.h" /* This is part of the CY8CKIT-028-TFT shield library. */
+#include "cycfg_capsense.h"
 
 #include "timer.h"
 
@@ -53,8 +54,9 @@
 
 #include "lvgl.h"
 #include "lv_port_disp.h"
+#include "lv_app.h"
 //#include "lv_examples.h"
-#include "lv_demos.h"
+//#include "lv_demos.h"
 
 
 
@@ -111,6 +113,14 @@ uint8_t uart_read_value;
 cyhal_timer_t led_blink_timer;
 
 
+cy_stc_gpio_pin_config_t pinConfig = {
+       /*.outVal =*/ 1UL,                  /* Output = High */
+       /*.driveMode =*/ CY_GPIO_DM_PULLUP, /* Resistive pull-up, input buffer on */
+       /*.hsiom =*/ P0_4_GPIO,             /* Software controlled pin */
+       /*.slewRate =*/ CY_GPIO_SLEW_FAST,  /* Fast slew rate */
+       /*.driveSel =*/ CY_GPIO_DRIVE_FULL, /* Full drive strength */                  /* SIO-specific setting - ignored */
+   };
+
 /*******************************************************************************
 * Function Name: main
 ********************************************************************************
@@ -145,19 +155,25 @@ int main(void)
         CY_ASSERT(0);
     }
 
+    if(CY_GPIO_SUCCESS != Cy_GPIO_Pin_Init(P0_4_PORT, P0_4_NUM, &pinConfig))
+   {
+	   /* Insert error handling */
+   }
+
+
     /* Enable global interrupts */
 
     __enable_irq();
 
     /* Initialize the display controller */
     result = mtb_st7789v_init8(&tft_pins);
+    initialize_button();
 
     lv_init();
-
     lv_port_disp_init();
+    lv_port_indev_init();
 
-    //lv_example_get_started_1();
-    lv_demo_widgets();
+    app_main();
 
     //LCD_Clear(BLACK);
 
@@ -177,9 +193,11 @@ int main(void)
 			Cy_SysLib_Delay(10);
 		}
 		#endif
+		Cy_CapSense_ScanAllWidgets(&cy_capsense_context);
 
 		lv_task_handler();
 		Cy_SysLib_Delay(10);
+
 		//disp2();
 		//Cy_SysLib_Delay(500);
 		//Border_Fill();
