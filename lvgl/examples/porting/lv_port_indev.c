@@ -398,17 +398,19 @@ static int8_t button_get_pressed_id(void)
 /*Test if `id` button is pressed or not*/
 static bool button_is_pressed(uint8_t id)
 {
+
+	static bool prev=false;
+	/*** execute every n ms ***/
+	bool btn_pressed = Cy_GPIO_Read(P0_4_PORT, P0_4_NUM) == 0;
+	bool reliable = btn_pressed==prev;
+	prev = btn_pressed;
+
+
 	if (id ==0)
 	{
-		if(0UL == Cy_GPIO_Read(P0_4_PORT, P0_4_NUM))
+		if(!reliable)
 		{
-			/* Insert logic for High pin state */
-			return true;
-		}
-		else
-		{
-			/* Insert logic for Low pin state */
-			return false;
+		  btn_pressed = false; // btn_pressed is not yet reliable, treat as not pressed
 		}
 	}
 
@@ -469,7 +471,7 @@ static bool button_is_pressed(uint8_t id)
 	 return status;
 #endif
 
-
+	 return btn_pressed;
 }
 
 #else /*Enable this file at the top*/
